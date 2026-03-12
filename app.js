@@ -1,20 +1,99 @@
 const $ = id => document.getElementById(id);
 
+const TIME_ZONE = 'Asia/Jerusalem';
+const JERUSALEM_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  timeZone: TIME_ZONE,
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hourCycle: 'h23',
+});
+
 let idx = 0;
 let todayIdx = -1;
-const sessionDua = DUAS[Math.floor(Math.random() * DUAS.length)];
+let todayKey = '';
 
-function getTodayIndex() {
-  const now = new Date();
-  const today = now.getFullYear() + '-'
-    + String(now.getMonth()+1).padStart(2,'0') + '-'
-    + String(now.getDate()).padStart(2,'0');
-  return DATA.findIndex(d => d.date === today);
+function getTimeZoneParts(date) {
+  const parts = JERUSALEM_FORMATTER.formatToParts(date);
+  const values = {};
+
+  parts.forEach(part => {
+    if (part.type !== 'literal') values[part.type] = part.value;
+  });
+
+  return {
+    year: Number(values.year),
+    month: Number(values.month),
+    day: Number(values.day),
+    hour: Number(values.hour),
+    minute: Number(values.minute),
+    second: Number(values.second),
+    isoDate: values.year + '-' + values.month + '-' + values.day,
+  };
+}
+
+function getJerusalemDateKey(now) {
+  return getTimeZoneParts(now || new Date()).isoDate;
+}
+
+function getDateIndex(dateKey) {
+  return DATA.findIndex(d => d.date === dateKey);
+}
+
+function getTodayIndex(now) {
+  return getDateIndex(getJerusalemDateKey(now || new Date()));
+}
+
+function parseDate(dateStr) {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return { year, month, day };
 }
 
 function parseTime(hhmm) {
-  const [h, m] = hhmm.split(':').map(Number);
-  return { h, m };
+  const [h, m, s = 0] = hhmm.split(':').map(Number);
+  return { h, m, s };
+}
+
+function makeCalendarDate(dateStr) {
+  const { year, month, day } = parseDate(dateStr);
+  return new Date(Date.UTC(year, month - 1, day, 12));
+}
+
+function getTimeZoneOffsetMs(date) {
+  const parts = getTimeZoneParts(date);
+  const utcMs = Date.UTC(
+    parts.year,
+    parts.month - 1,
+    parts.day,
+    parts.hour,
+    parts.minute,
+    parts.second
+  );
+  return utcMs - date.getTime();
+}
+
+function makeZonedDate(dateStr, hhmm) {
+  const { year, month, day } = parseDate(dateStr);
+  const { h, m, s } = parseTime(hhmm);
+  const baseUtcMs = Date.UTC(year, month - 1, day, h, m, s);
+  let targetUtcMs = baseUtcMs;
+
+  for (let i = 0; i < 2; i++) {
+    const offsetMs = getTimeZoneOffsetMs(new Date(targetUtcMs));
+    targetUtcMs = baseUtcMs - offsetMs;
+  }
+
+  return new Date(targetUtcMs);
+}
+
+function getDailyDua(now) {
+  const dateKey = getJerusalemDateKey(now || new Date());
+  const dayNumber = Math.floor(Date.parse(dateKey + 'T00:00:00Z') / 86400000);
+  const duaIndex = ((dayNumber % DUAS.length) + DUAS.length) % DUAS.length;
+  return DUAS[duaIndex];
 }
 
 function fmt12(hhmm) {
@@ -50,9 +129,9 @@ function render(direction) {
 
 function update() {
   const d = DATA[idx];
-  const dt = new Date(d.date + 'T12:00:00');
+  const dt = makeCalendarDate(d.date);
 
-  $('dayName').textContent = LANG.days[dt.getDay()];
+  $('dayName').textContent = LANG.days[dt.getUTCDay()];
   $('gregorian').textContent = LANG.dateFmt(dt);
   $('ramadanDay').textContent = LANG.ramadanDay(d.r);
 
@@ -71,7 +150,7 @@ function update() {
 
   $('progress').style.width = (d.r / DATA.length * 100) + '%';
 
-  LANG.updateDua(sessionDua);
+  LANG.updateDua(getDailyDua());
 
   document.querySelectorAll('.dot').forEach((dot, i) => {
     dot.classList.toggle('active', i === idx);
@@ -79,8 +158,14 @@ function update() {
 }
 
 function updateCountdown() {
-  const newTodayIdx = getTodayIndex();
-  if (newTodayIdx !== todayIdx) {
+  const now = new Date();
+  const nextTodayKey = getJerusalemDateKey(now);
+  const newTodayIdx = getDateIndex(nextTodayKey);
+  const dayChanged = nextTodayKey !== todayKey;
+
+  if (dayChanged) todayKey = nextTodayKey;
+
+  if (newTodayIdx !== todayIdx || dayChanged) {
     const wasOnToday = idx === todayIdx;
     todayIdx = newTodayIdx;
     if (wasOnToday && todayIdx >= 0) idx = todayIdx;
@@ -95,11 +180,9 @@ function updateCountdown() {
   }
 
   const d = DATA[todayIdx];
-  const now = new Date();
-  const todayStr = d.date;
 
-  const fajrDate = new Date(todayStr + 'T' + d.fajr + ':00');
-  const magDate = new Date(todayStr + 'T' + d.mag + ':00');
+  const fajrDate = makeZonedDate(d.date, d.fajr);
+  const magDate = makeZonedDate(d.date, d.mag);
 
   let label, target, colorClass;
 
@@ -114,7 +197,7 @@ function updateCountdown() {
   } else if (todayIdx < DATA.length - 1) {
     const tomorrow = DATA[todayIdx + 1];
     label = LANG.countdown.suhoor;
-    target = new Date(tomorrow.date + 'T' + tomorrow.fajr + ':00');
+    target = makeZonedDate(tomorrow.date, tomorrow.fajr);
     colorClass = 'fajr-color';
   } else {
     $('countdownLabel').textContent = '';
@@ -145,7 +228,8 @@ DATA.forEach(() => {
 });
 
 // Init
-todayIdx = getTodayIndex();
+todayKey = getJerusalemDateKey();
+todayIdx = getDateIndex(todayKey);
 idx = todayIdx >= 0 ? todayIdx : 0;
 render();
 updateCountdown();

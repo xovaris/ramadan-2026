@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Ramadan 2026 — Jerusalem</title>
 
 <!-- PWA / Home Screen -->
@@ -83,7 +83,7 @@ const LANG = {
   ramadanDay: r => 'Ramadan ' + r,
   dateFmt: dt => {
     const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    return months[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear();
+    return months[dt.getUTCMonth()] + ' ' + dt.getUTCDate() + ', ' + dt.getUTCFullYear();
   },
   countdown: {
     suhoor: 'Suhoor ends in',
