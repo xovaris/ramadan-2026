@@ -616,6 +616,14 @@ function update() {
 }
 
 function updateCountdown() {
+  const newTodayIdx = getTodayIndex();
+  if (newTodayIdx !== todayIdx) {
+    const wasOnToday = idx === todayIdx;
+    todayIdx = newTodayIdx;
+    if (wasOnToday && todayIdx >= 0) idx = todayIdx;
+    render();
+  }
+
   if (todayIdx < 0) {
     $('countdownLabel').textContent = '';
     $('countdownTime').textContent = '';
@@ -640,6 +648,11 @@ function updateCountdown() {
     label = 'Iftar in';
     target = magDate;
     colorClass = 'maghrib-color';
+  } else if (todayIdx < DATA.length - 1) {
+    const tomorrow = DATA[todayIdx + 1];
+    label = 'Suhoor ends in';
+    target = new Date(tomorrow.date + 'T' + tomorrow.fajr + ':00');
+    colorClass = 'fajr-color';
   } else {
     $('countdownLabel').textContent = '';
     $('countdownTime').className = 'countdown-time countdown-done';

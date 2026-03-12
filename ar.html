@@ -600,6 +600,14 @@ function update() {
 }
 
 function updateCountdown() {
+  const newTodayIdx = getTodayIndex();
+  if (newTodayIdx !== todayIdx) {
+    const wasOnToday = idx === todayIdx;
+    todayIdx = newTodayIdx;
+    if (wasOnToday && todayIdx >= 0) idx = todayIdx;
+    render();
+  }
+
   if (todayIdx < 0) {
     $('countdownLabel').textContent = '';
     $('countdownTime').textContent = '';
@@ -624,6 +632,11 @@ function updateCountdown() {
     label = '\u0627\u0644\u0625\u0641\u0637\u0627\u0631 \u062E\u0644\u0627\u0644';
     target = magDate;
     colorClass = 'maghrib-color';
+  } else if (todayIdx < DATA.length - 1) {
+    const tomorrow = DATA[todayIdx + 1];
+    label = '\u0627\u0644\u0633\u062D\u0648\u0631 \u064A\u0646\u062A\u0647\u064A \u062E\u0644\u0627\u0644';
+    target = new Date(tomorrow.date + 'T' + tomorrow.fajr + ':00');
+    colorClass = 'fajr-color';
   } else {
     $('countdownLabel').textContent = '';
     $('countdownTime').className = 'countdown-time countdown-done';
