@@ -17,7 +17,8 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
+  /* Dark (default) */
+  :root, [data-theme="dark"] {
     --bg: #0a0a0c;
     --card: #141418;
     --card-border: #1e1e24;
@@ -28,6 +29,34 @@
     --fajr: #5b8fb9;
     --maghrib: #d4785c;
     --today-glow: rgba(201, 168, 76, 0.06);
+  }
+
+  /* Light */
+  [data-theme="light"] {
+    --bg: #faf7f2;
+    --card: #ffffff;
+    --card-border: #e2ddd6;
+    --text: #2a2520;
+    --dim: #7a756e;
+    --accent: #a67f1a;
+    --accent-soft: rgba(166, 127, 26, 0.1);
+    --fajr: #2e6a99;
+    --maghrib: #b85a3a;
+    --today-glow: rgba(166, 127, 26, 0.06);
+  }
+
+  /* High Contrast */
+  [data-theme="hc"] {
+    --bg: #ffffff;
+    --card: #f0f0f0;
+    --card-border: #222222;
+    --text: #000000;
+    --dim: #444444;
+    --accent: #6d5000;
+    --accent-soft: rgba(109, 80, 0, 0.12);
+    --fajr: #0b3d6e;
+    --maghrib: #8c2a0a;
+    --today-glow: rgba(109, 80, 0, 0.08);
   }
 
   html, body {
@@ -291,9 +320,55 @@
     width: 12px;
     border-radius: 2px;
   }
+
+  /* Theme toggle */
+  .theme-toggle {
+    position: fixed;
+    top: calc(0.75rem + env(safe-area-inset-top));
+    right: calc(0.75rem + env(safe-area-inset-right));
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    color: var(--dim);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    z-index: 10;
+    line-height: 1;
+  }
+
+  .theme-toggle:active {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* High Contrast overrides for legibility */
+  [data-theme="hc"] .time-block .time {
+    font-weight: 800;
+  }
+
+  [data-theme="hc"] .card {
+    border-width: 2px;
+  }
+
+  [data-theme="hc"] .nav button {
+    border-width: 2px;
+    font-weight: 700;
+  }
+
+  [data-theme="hc"] .fasting-hours {
+    border-top-width: 2px;
+  }
 </style>
 </head>
 <body>
+
+<button class="theme-toggle" id="themeToggle" aria-label="Switch theme"></button>
 
 <div class="app">
   <div class="header">
@@ -541,6 +616,32 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft' && idx > 0) { idx--; render('right'); }
   if (e.key === 'ArrowRight' && idx < DATA.length - 1) { idx++; render('left'); }
 });
+
+// Theme switching
+const THEMES = ['dark', 'light', 'hc'];
+const THEME_ICONS = { dark: '\u263D', light: '\u2600', hc: '\u25C9' };
+const THEME_META = { dark: '#0a0a0c', light: '#faf7f2', hc: '#ffffff' };
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  $('themeToggle').textContent = THEME_ICONS[theme];
+  document.querySelector('meta[name="theme-color"]').content = THEME_META[theme];
+  document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').content =
+    theme === 'dark' ? 'black-translucent' : 'default';
+  try { localStorage.setItem('theme', theme); } catch(e) {}
+}
+
+$('themeToggle').addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  const next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
+  applyTheme(next);
+});
+
+// Restore saved theme
+applyTheme((() => {
+  try { const t = localStorage.getItem('theme'); return THEMES.includes(t) ? t : 'dark'; }
+  catch(e) { return 'dark'; }
+})());
 </script>
 
 </body>
