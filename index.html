@@ -59,6 +59,16 @@
     --today-glow: rgba(109, 80, 0, 0.08);
   }
 
+  .progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+    z-index: 20;
+  }
+
   html, body {
     height: 100%;
     background: var(--bg);
@@ -415,6 +425,7 @@
 </head>
 <body>
 
+<div class="progress" id="progress"></div>
 <button class="theme-toggle" id="themeToggle" aria-label="Switch theme"></button>
 <a class="lang-toggle" href="ar.html" aria-label="النسخة العربية">عربي</a>
 
@@ -585,6 +596,8 @@ function update() {
   card.classList.toggle('today', idx === todayIdx);
 
   $('todayBtn').classList.toggle('visible', idx !== todayIdx && todayIdx >= 0);
+
+  $('progress').style.width = (d.r / DATA.length * 100) + '%';
 
   const dua = DUAS[(d.r - 1) % DUAS.length];
   $('duaAr').textContent = dua.ar;
