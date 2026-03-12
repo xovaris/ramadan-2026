@@ -7,7 +7,7 @@ A single-page Ramadan prayer times viewer for Jerusalem (Ramadan 1447 / 2026).
 - Fajr (Suhoor) and Maghrib (Iftar) times for all 30 days
 - Live countdown to the next Suhoor or Iftar
 - Ramadan progress bar
-- Daily du'a (supplication) rotation
+- Daily du'a of the day
 - Swipe, arrow key, and button navigation
 - Dark, light, and high-contrast themes
 - Arabic version (`ar.html`)
@@ -15,11 +15,19 @@ A single-page Ramadan prayer times viewer for Jerusalem (Ramadan 1447 / 2026).
 
 ## Usage
 
-Open `index.html` in a browser. No build step or server required.
+Open `index.html` in a browser for the basic app experience.
+
+Serve the folder over HTTP if you want installable PWA behavior. For example:
+
+```sh
+python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000/index.html` or `http://localhost:8000/ar.html`.
 
 ## Data
 
-Prayer times are for Jerusalem (31.7683N, 35.2137E) and are embedded directly in the HTML. Times were sourced from the [Aladhan Prayer Times API](https://aladhan.com/prayer-times-api) using the Umm al-Qura calculation method (method 4).
+Prayer times are for Jerusalem and are embedded in `data.js`. Times were sourced from [Mawaqit](https://mawaqit.net/).
 
 ## License
 
