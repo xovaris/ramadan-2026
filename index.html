@@ -13,7 +13,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Ramadan%202026%20%E2%80%94%20Jerusalem%22%2C%22short_name%22%3A%22Ramadan%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a0a0c%22%2C%22theme_color%22%3A%22%230a0a0c%22%7D">
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -99,19 +99,17 @@
   }
 
   .header h1 {
-    font-family: 'DM Mono', monospace;
-    font-weight: 300;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
+    font-family: 'Amiri', serif;
+    font-weight: 400;
+    font-size: 0.95rem;
     color: var(--dim);
   }
 
   .header .city {
+    font-family: 'Amiri', serif;
     font-weight: 700;
-    font-size: 1.1rem;
-    margin-top: 0.2rem;
-    letter-spacing: 0.02em;
+    font-size: 1.35rem;
+    margin-top: 0.15rem;
   }
 
   /* Navigation */
@@ -295,9 +293,11 @@
   }
 
   .dua .dua-ar {
-    font-size: 0.85rem;
+    font-family: 'Amiri', serif;
+    font-size: 0.95rem;
     color: var(--accent);
-    font-style: italic;
+    direction: rtl;
+    unicode-bidi: isolate;
   }
 
   .dua .dua-en {
