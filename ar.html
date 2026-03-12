@@ -516,6 +516,7 @@ const $ = id => document.getElementById(id);
 
 let idx = 0;
 let todayIdx = -1;
+const sessionDua = DUAS[Math.floor(Math.random() * DUAS.length)];
 
 function getTodayIndex() {
   const now = new Date();
@@ -584,7 +585,7 @@ function update() {
 
   $('progress').style.width = (d.r / DATA.length * 100) + '%';
 
-  $('duaText').textContent = DUAS[(d.r - 1) % DUAS.length];
+  $('duaText').textContent = sessionDua;
 
   document.querySelectorAll('.dot').forEach((dot, i) => {
     dot.classList.toggle('active', i === idx);
