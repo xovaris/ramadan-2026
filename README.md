@@ -1,4 +1,4 @@
-# Ramadan 2026 -- Jerusalem
+# Ramadan 2026 Jerusalem
 
 A single-page Ramadan prayer times viewer for Jerusalem (Ramadan 1447 / 2026).
 
