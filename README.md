@@ -19,7 +19,7 @@ Open `index.html` in a browser. No build step or server required.
 
 ## Data
 
-Prayer times are for Jerusalem and are embedded directly in the HTML. Times are based on the Umm al-Qura calculation method.
+Prayer times are for Jerusalem (31.7683N, 35.2137E) and are embedded directly in the HTML. Times were sourced from the [Aladhan Prayer Times API](https://aladhan.com/prayer-times-api) using the Umm al-Qura calculation method (method 4).
 
 ## License
 
