@@ -227,6 +227,7 @@ html, body {
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  white-space: nowrap;
   margin-bottom: 0.5rem;
 }
 
