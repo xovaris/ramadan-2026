@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Ramadan 2026 — Jerusalem</title>
+<title>رمضان 2026 — القدس</title>
 
 <!-- PWA / Home Screen -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Ramadan">
+<meta name="apple-mobile-web-app-title" content="رمضان">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Ramadan%202026%20%E2%80%94%20Jerusalem%22%2C%22short_name%22%3A%22Ramadan%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a0a0c%22%2C%22theme_color%22%3A%22%230a0a0c%22%7D">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22%D8%B1%D9%85%D8%B6%D8%A7%D9%86%202026%20%E2%80%94%20%D8%A7%D9%84%D9%82%D8%AF%D8%B3%22%2C%22short_name%22%3A%22%D8%B1%D9%85%D8%B6%D8%A7%D9%86%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a0a0c%22%2C%22theme_color%22%3A%22%230a0a0c%22%7D">
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -63,7 +63,7 @@
     height: 100%;
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow: hidden;
     touch-action: pan-y;
@@ -89,19 +89,16 @@
   }
 
   .header h1 {
-    font-family: 'DM Mono', monospace;
     font-weight: 300;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
     color: var(--dim);
   }
 
   .header .city {
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-top: 0.2rem;
-    letter-spacing: 0.02em;
   }
 
   /* Navigation */
@@ -140,7 +137,7 @@
 
   .nav .day-name {
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .nav .gregorian {
@@ -148,14 +145,14 @@
     font-size: 0.75rem;
     color: var(--dim);
     margin-top: 0.15rem;
+    direction: ltr;
+    unicode-bidi: isolate;
   }
 
   .nav .ramadan-day {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    letter-spacing: 0.05em;
     margin-top: 0.25rem;
   }
 
@@ -197,10 +194,8 @@
   }
 
   .time-block .label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
     margin-bottom: 0.5rem;
   }
 
@@ -208,10 +203,13 @@
   .time-block.maghrib .label { color: var(--maghrib); }
 
   .time-block .time {
+    font-family: 'DM Mono', monospace;
     font-weight: 700;
     font-size: 2rem;
     letter-spacing: -0.02em;
     line-height: 1;
+    direction: ltr;
+    unicode-bidi: isolate;
   }
 
   .time-block .ampm {
@@ -234,10 +232,8 @@
     margin-top: 1.25rem;
     padding-top: 1rem;
     border-top: 1px solid var(--card-border);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: var(--dim);
-    letter-spacing: 0.08em;
   }
 
   .fasting-hours span {
@@ -253,10 +249,8 @@
   }
 
   .countdown .countdown-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
     color: var(--dim);
     margin-bottom: 0.3rem;
   }
@@ -266,6 +260,8 @@
     font-weight: 500;
     font-size: 1.5rem;
     letter-spacing: 0.05em;
+    direction: ltr;
+    unicode-bidi: isolate;
   }
 
   .countdown .countdown-time.fajr-color { color: var(--fajr); }
@@ -278,10 +274,8 @@
 
   /* Today button */
   .today-btn {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
     background: none;
     border: 1px solid var(--accent);
     color: var(--accent);
@@ -325,7 +319,7 @@
   .theme-toggle {
     position: fixed;
     top: calc(0.75rem + env(safe-area-inset-top));
-    right: calc(0.75rem + env(safe-area-inset-right));
+    left: calc(0.75rem + env(safe-area-inset-left));
     background: var(--card);
     border: 1px solid var(--card-border);
     color: var(--dim);
@@ -351,13 +345,14 @@
   .lang-toggle {
     position: fixed;
     top: calc(0.75rem + env(safe-area-inset-top));
-    left: calc(0.75rem + env(safe-area-inset-left));
+    right: calc(0.75rem + env(safe-area-inset-right));
     background: var(--card);
     border: 1px solid var(--card-border);
     color: var(--dim);
     height: 32px;
     border-radius: 16px;
     font-size: 0.65rem;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -373,7 +368,7 @@
     color: var(--accent);
   }
 
-  /* High Contrast overrides for legibility */
+  /* High Contrast overrides */
   [data-theme="hc"] .time-block .time {
     font-weight: 800;
   }
@@ -394,40 +389,40 @@
 </head>
 <body>
 
-<button class="theme-toggle" id="themeToggle" aria-label="Switch theme"></button>
-<a class="lang-toggle" href="ar.html" aria-label="النسخة العربية">عربي</a>
+<button class="theme-toggle" id="themeToggle" aria-label="تغيير السمة"></button>
+<a class="lang-toggle" href="index.html" aria-label="English version">EN</a>
 
 <div class="app">
   <div class="header">
-    <h1>Ramadan 1447 / 2026</h1>
-    <div class="city">Jerusalem</div>
+    <h1>رمضان 1447 / 2026</h1>
+    <div class="city">القدس</div>
   </div>
 
   <div class="nav">
-    <button id="prev" aria-label="Previous day">&#8249;</button>
+    <button id="next" aria-label="اليوم التالي">&#8249;</button>
     <div class="date-info">
       <div class="day-name" id="dayName"></div>
       <div class="gregorian" id="gregorian"></div>
       <div class="ramadan-day" id="ramadanDay"></div>
     </div>
-    <button id="next" aria-label="Next day">&#8250;</button>
+    <button id="prev" aria-label="اليوم السابق">&#8250;</button>
   </div>
 
   <div class="card" id="card">
     <div class="times">
       <div class="time-block fajr">
-        <div class="label">Fajr / Suhoor</div>
+        <div class="label">الفجر / السحور</div>
         <div class="time" id="fajrTime"></div>
         <div class="ampm" id="fajrAmpm"></div>
       </div>
       <div class="divider"></div>
       <div class="time-block maghrib">
-        <div class="label">Maghrib / Iftar</div>
+        <div class="label">المغرب / الإفطار</div>
         <div class="time" id="maghribTime"></div>
         <div class="ampm" id="maghribAmpm"></div>
       </div>
     </div>
-    <div class="fasting-hours">Fasting: <span id="fastHours"></span></div>
+    <div class="fasting-hours">الصيام: <span id="fastHours"></span></div>
   </div>
 
   <div class="countdown" id="countdown">
@@ -435,7 +430,7 @@
     <div class="countdown-time" id="countdownTime"></div>
   </div>
 
-  <button class="today-btn" id="todayBtn">Back to today</button>
+  <button class="today-btn" id="todayBtn">العودة لليوم</button>
 
   <div class="dots" id="dots"></div>
 </div>
@@ -474,8 +469,8 @@ const DATA = [
   { day: "Thu", r: 30, date: "2026-03-19", fajr: "04:25", mag: "17:57" },
 ];
 
-const DAYS_FULL = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const DAYS_AR = ["\u0627\u0644\u0623\u062D\u062F","\u0627\u0644\u0627\u062B\u0646\u064A\u0646","\u0627\u0644\u062B\u0644\u0627\u062B\u0627\u0621","\u0627\u0644\u0623\u0631\u0628\u0639\u0627\u0621","\u0627\u0644\u062E\u0645\u064A\u0633","\u0627\u0644\u062C\u0645\u0639\u0629","\u0627\u0644\u0633\u0628\u062A"];
+const MONTHS_AR = ["\u0643\u0627\u0646\u0648\u0646 \u0627\u0644\u062B\u0627\u0646\u064A","\u0634\u0628\u0627\u0637","\u0622\u0630\u0627\u0631","\u0646\u064A\u0633\u0627\u0646","\u0623\u064A\u0627\u0631","\u062D\u0632\u064A\u0631\u0627\u0646","\u062A\u0645\u0648\u0632","\u0622\u0628","\u0623\u064A\u0644\u0648\u0644","\u062A\u0634\u0631\u064A\u0646 \u0627\u0644\u0623\u0648\u0644","\u062A\u0634\u0631\u064A\u0646 \u0627\u0644\u062B\u0627\u0646\u064A","\u0643\u0627\u0646\u0648\u0646 \u0627\u0644\u0623\u0648\u0644"];
 
 const $ = id => document.getElementById(id);
 
@@ -498,7 +493,7 @@ function parseTime(hhmm) {
 function fmt12(hhmm) {
   const { h, m } = parseTime(hhmm);
   const h12 = h % 12 || 12;
-  const ampm = h < 12 ? 'AM' : 'PM';
+  const ampm = h < 12 ? '\u0635' : '\u0645';
   return { time: h12 + ':' + String(m).padStart(2,'0'), ampm };
 }
 
@@ -508,7 +503,7 @@ function fastingDuration(fajr, mag) {
   let mins = (m.h * 60 + m.m) - (f.h * 60 + f.m);
   const hrs = Math.floor(mins / 60);
   mins = mins % 60;
-  return hrs + 'h ' + mins + 'm';
+  return hrs + ' \u0633 ' + mins + ' \u062F';
 }
 
 function render(direction) {
@@ -530,9 +525,9 @@ function update() {
   const d = DATA[idx];
   const dt = new Date(d.date + 'T12:00:00');
 
-  $('dayName').textContent = DAYS_FULL[dt.getDay()];
-  $('gregorian').textContent = MONTHS[dt.getMonth()] + ' ' + dt.getDate() + ', ' + dt.getFullYear();
-  $('ramadanDay').textContent = 'Ramadan ' + d.r;
+  $('dayName').textContent = DAYS_AR[dt.getDay()];
+  $('gregorian').textContent = dt.getDate() + ' ' + MONTHS_AR[dt.getMonth()] + ' ' + dt.getFullYear();
+  $('ramadanDay').textContent = '\u0631\u0645\u0636\u0627\u0646 ' + d.r;
 
   const fajr = fmt12(d.fajr);
   const mag = fmt12(d.mag);
@@ -570,17 +565,17 @@ function updateCountdown() {
   let label, target, colorClass;
 
   if (now < fajrDate) {
-    label = 'Suhoor ends in';
+    label = '\u0627\u0644\u0633\u062D\u0648\u0631 \u064A\u0646\u062A\u0647\u064A \u062E\u0644\u0627\u0644';
     target = fajrDate;
     colorClass = 'fajr-color';
   } else if (now < magDate) {
-    label = 'Iftar in';
+    label = '\u0627\u0644\u0625\u0641\u0637\u0627\u0631 \u062E\u0644\u0627\u0644';
     target = magDate;
     colorClass = 'maghrib-color';
   } else {
     $('countdownLabel').textContent = '';
     $('countdownTime').className = 'countdown-time countdown-done';
-    $('countdownTime').textContent = 'Ramadan ' + d.r + ' complete';
+    $('countdownTime').textContent = '\u0631\u0645\u0636\u0627\u0646 ' + d.r + ' \u2014 \u062A\u0645';
     return;
   }
 
@@ -612,7 +607,7 @@ render();
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// Navigation
+// Navigation (RTL: visual left = next, visual right = prev)
 $('prev').addEventListener('click', () => {
   if (idx > 0) { idx--; render('right'); }
 });
@@ -627,7 +622,7 @@ $('todayBtn').addEventListener('click', () => {
   }
 });
 
-// Swipe support
+// Swipe (RTL: swipe left = next, swipe right = prev — same as LTR visually)
 let touchStartX = 0;
 document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
 document.addEventListener('touchend', e => {
@@ -638,10 +633,10 @@ document.addEventListener('touchend', e => {
   }
 });
 
-// Keyboard
+// Keyboard (RTL: ArrowRight = prev, ArrowLeft = next — browser handles visually)
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowLeft' && idx > 0) { idx--; render('right'); }
-  if (e.key === 'ArrowRight' && idx < DATA.length - 1) { idx++; render('left'); }
+  if (e.key === 'ArrowRight' && idx > 0) { idx--; render('right'); }
+  if (e.key === 'ArrowLeft' && idx < DATA.length - 1) { idx++; render('left'); }
 });
 
 // Theme switching
