@@ -145,8 +145,6 @@
     font-size: 0.75rem;
     color: var(--dim);
     margin-top: 0.15rem;
-    direction: ltr;
-    unicode-bidi: isolate;
   }
 
   .nav .ramadan-day {
@@ -527,7 +525,7 @@ function update() {
 
   $('dayName').textContent = DAYS_AR[dt.getDay()];
   $('gregorian').textContent = dt.getDate() + ' ' + MONTHS_AR[dt.getMonth()] + ' ' + dt.getFullYear();
-  $('ramadanDay').textContent = '\u0631\u0645\u0636\u0627\u0646 ' + d.r;
+  $('ramadanDay').textContent = d.r + ' \u0631\u0645\u0636\u0627\u0646';
 
   const fajr = fmt12(d.fajr);
   const mag = fmt12(d.mag);
